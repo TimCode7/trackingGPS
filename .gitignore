@@ -11,4 +11,9 @@
 /kafka/producer/.dockerignore
 /kafka/consumer/.dockerignore
 
+# api
+/api/__pycache__/
+
+
+
 /.vscode
