@@ -1,0 +1,15 @@
+{
+    "name": "postgres-sink",
+    "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+      "tasks.max": "1",
+      "topics": "coordinates",
+      "connection.url": "jdbc:postgresql://127.0.0.1:5432/ kafka_tracking",
+      "connection.user": "postgres",
+      "connection.password": "kafka",
+      "auto.create": "true",
+      "insert.mode": "upsert",
+      "pk.mode": "record_key",
+      "pk.fields": "id"
+    }
+  }
