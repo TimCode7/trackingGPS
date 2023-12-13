@@ -25,11 +25,26 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.coordonnees (
-    id integer NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
     latitude character varying(100),
     longitude character varying(100),
     key character varying(10)
 );
+
+-- 
+-- Fonction Trigger
+-- 
+
+CREATE OR REPLACE FUNCTION notify_insert_coordonnees() RETURNS TRIGGER AS $$
+BEGIN
+   PERFORM pg_notify('gps_channel', row_to_json(NEW)::text);
+   RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_coordonnees_trigger
+AFTER INSERT ON public.coordonnees
+FOR EACH ROW EXECUTE FUNCTION notify_insert_coordonnees();
 
 
 ALTER TABLE public.coordonnees OWNER TO postgres;
