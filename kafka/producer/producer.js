@@ -1,5 +1,5 @@
 const kafka = require('kafka-node');
-const client = new kafka.KafkaClient({ kafkaHost: '172.17.7.213:9092' });
+const client = new kafka.KafkaClient({ kafkaHost: '192.168.74.114:9092' });
 const Producer = kafka.Producer;
 const producer = new Producer(client);
 const topic = 'coordinates';
@@ -22,8 +22,8 @@ function getRandomCoordinatesAround(latitude, longitude) {
 producer.on('ready', function () {
     let i = 0;
     let data = {
-        latitude: "48.096430214146935",
-        longitude: "0.52138240299672"
+        latitude: "43.232858",
+        longitude: "0.0781021"
     };
     setInterval(() => {
         if (i != 0) {
