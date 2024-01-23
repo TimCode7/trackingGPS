@@ -1,12 +1,10 @@
 # trackingGPS
 
-## Pour lancer l'application effectuez la commande : 
-`docker-compose up`
+## Pour lancer le consumer, effectuez la commande  : 
+`docker-compose -f docker-compose.consumer.yml up`
 
-## Pour tester le changement de coordonnées en temps réel : 
+## Pour lancer le premier producer, effectuez la commande : 
+`docker-compose -f docker-compose.producer1.yml up`
 
-### Aller dans la base de données :
-`psql -h localhost -p 5432 -U postgres -W` \
-`\c kafka_tracking`
-#### Ajouter en base de données une coordonnées : 
-`INSERT INTO coordonnees (latitude, longitude, key) VALUES({latitude}, {longitude}, {'IP1'|'IP2'});`
+## Pour lancer le deuxième producer, effectuez la commande : 
+`docker-compose -f docker-compose.producer2.yml up`

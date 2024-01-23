@@ -37,17 +37,10 @@ function App() {
     };
   }, []);
 
-  const sendMessage = () => {
-    console.log("plus rien ici");
-  };
-
   return (
     <div className="App">
       <h1>Map</h1>
       <Map latestData={latestData} />
-      <button onClick={sendMessage}>
-        Send Message
-      </button>
     </div>
   );
 }

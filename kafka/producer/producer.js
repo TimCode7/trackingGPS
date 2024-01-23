@@ -1,15 +1,15 @@
 const kafka = require('kafka-node');
-const client = new kafka.KafkaClient({ kafkaHost: 'broker:29092' });
+const client = new kafka.KafkaClient({ kafkaHost: process.env.KAFKA_HOST });
 const Producer = kafka.Producer;
 const producer = new Producer(client);
 const topic = 'coordinates';
 
 
 producer.on('ready', function () {
-    setTimeout(() => {
+    setInterval(() => {
         const data = {
-            latitude: "-58.096430214146935",
-            longitude: "57.52138240299672"
+            latitude: "43.2957547",
+            longitude: "-0.3685668",
         };
         const key = process.env.PRODUCER_KEY;
         const payloads = [

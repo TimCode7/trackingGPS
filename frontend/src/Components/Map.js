@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 
 const Map = (props) => {
+    //TODO: get the latest data from the database and display it on the map
     const [ positionIP1, setPositionIP1 ] = useState([ 51.505, -0.09 ]);
     const [ positionIP2, setPositionIP2 ] = useState([ 51.510, -0.10 ]);
 
@@ -11,9 +12,9 @@ const Map = (props) => {
         if (props.latestData != null) {
 
             console.log(props.latestData[ "key" ], [ props.latestData[ "latitude" ], props.latestData[ "longitude" ] ])
-            if (props.latestData[ "key" ] == "IP1") {
+            if (props.latestData[ "key" ] === "IP1") {
                 setPositionIP1([ props.latestData[ "latitude" ], props.latestData[ "longitude" ] ]);
-            } else if (props.latestData[ "key" ] == "IP2") {
+            } else if (props.latestData[ "key" ] === "IP2") {
                 setPositionIP2([ props.latestData[ "latitude" ], props.latestData[ "longitude" ] ]);
             }
         }
@@ -35,12 +36,12 @@ const Map = (props) => {
                 />
                 <Marker position={positionIP1} icon={customIcon}>
                     <Popup>
-                        Coordonnées de IP1 : <br /> {positionIP1}
+                        Coordonnées de IP1 : <br /> {positionIP1[ 0 ]}, {positionIP1[ 1 ]}
                     </Popup>
                 </Marker>
                 <Marker position={positionIP2} icon={customIcon}>
                     <Popup>
-                        Coordonnées de IP2 : <br /> {positionIP2}
+                        Coordonnées de IP2 : <br /> {positionIP2[ 0 ]}, {positionIP2[ 1 ]}
                     </Popup>
                 </Marker>
             </MapContainer>
