@@ -28,15 +28,6 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
 
-  # create_topic:
-  #   build: ./kafka/create_topic
-  #   depends_on:
-  #     - broker
-  #   ports:
-  #     - "3002:3002"
-  #   environment:
-  #     KAFKA_HOST: $IP:9092
-
   consumer:
     build: ./kafka/consumer
     depends_on:
