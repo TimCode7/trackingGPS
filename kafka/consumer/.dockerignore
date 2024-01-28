@@ -20,6 +20,5 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
-package-lock.json
 LICENSE
 README.md

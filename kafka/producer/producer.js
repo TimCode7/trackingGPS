@@ -22,8 +22,8 @@ function getRandomCoordinatesAround(latitude, longitude) {
 producer.on('ready', function () {
     let i = 0;
     let data = {
-        latitude: "43.232858",
-        longitude: "0.0781021"
+        latitude: "43.3196581",
+        longitude: "-0.3606434"
     };
     setInterval(() => {
         if (i != 0) {
@@ -33,8 +33,6 @@ producer.on('ready', function () {
         const payloads = [
             { topic: topic, messages: JSON.stringify(data), key: key }
         ];
-        console.log(key, payloads)
-
         producer.send(payloads, function (err, data) {
             if (err) {
                 console.error("Erreur lors de l'envoi du message:", err);
@@ -43,7 +41,7 @@ producer.on('ready', function () {
             }
         });
         i++;
-    }, 1000);
+    }, 4000);
 });
 
 producer.on('error', function (err) {

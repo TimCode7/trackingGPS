@@ -7,14 +7,10 @@
 /kafka/consumer/package-lock.json
 /kafka/consumer/node_modules/
 
-# docker
-/kafka/producer/.dockerignore
-/kafka/consumer/.dockerignore
-
 # api
 /api/__pycache__/
 
 # frontend
 /frontend/node_modules
-
+/frontend/package-lock.json
 /.vscode

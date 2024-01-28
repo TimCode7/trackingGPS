@@ -77,6 +77,17 @@ async def get_coords():
     return await database.fetch_all(query)
 
 
+@app.get("/last_two_coords")
+async def get_last_two_coords():
+    query_IP1 = "SELECT * FROM coordonnees WHERE key = 'IP1' ORDER BY id DESC LIMIT 1"
+    query_IP2 = "SELECT * FROM coordonnees WHERE key = 'IP2' ORDER BY id DESC LIMIT 1"
+
+    result_IP1 = await database.fetch_one(query_IP1)
+    result_IP2 = await database.fetch_one(query_IP2)
+
+    return [result_IP1, result_IP2]
+
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()

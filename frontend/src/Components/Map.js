@@ -3,15 +3,22 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 
 const Map = (props) => {
-    //TODO: get the latest data from the database and display it on the map
-    const [ positionIP1, setPositionIP1 ] = useState([ 51.505, -0.09 ]);
-    const [ positionIP2, setPositionIP2 ] = useState([ 51.510, -0.10 ]);
+    const [ positionIP1, setPositionIP1 ] = useState([ 46.603354, 1.8883335 ]);
+    const [ positionIP2, setPositionIP2 ] = useState([ 46.603354, 1.8883335 ]);
 
     useEffect(() => {
-        console.log(typeof (props.latestData));
-        if (props.latestData != null) {
+        if (props.firstData != null) {
+            if (props.firstData[ 0 ] != null && props.firstData[ 0 ][ "key" ] === "IP1") {
+                setPositionIP1([ props.firstData[ 0 ][ "latitude" ], props.firstData[ 0 ][ "longitude" ] ]);
+            }
+            if (props.firstData[ 1 ] != null && props.firstData[ 1 ][ "key" ] === "IP2") {
+                setPositionIP2([ props.firstData[ 0 ][ "latitude" ], props.firstData[ 0 ][ "longitude" ] ]);
+            }
+        }
+    }, [ props.firstData ]);
 
-            console.log(props.latestData[ "key" ], [ props.latestData[ "latitude" ], props.latestData[ "longitude" ] ])
+    useEffect(() => {
+        if (props.latestData != null) {
             if (props.latestData[ "key" ] === "IP1") {
                 setPositionIP1([ props.latestData[ "latitude" ], props.latestData[ "longitude" ] ]);
             } else if (props.latestData[ "key" ] === "IP2") {
@@ -29,21 +36,27 @@ const Map = (props) => {
     });
     return (
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', height: '80vh', width: '100%' }}>
-            <MapContainer center={positionIP1} zoom={13} style={{ height: '100%', width: '80%' }}>
+            <MapContainer center={[ 46.603354, 1.8883335 ]} zoom={5} style={{ height: '100%', width: '80%' }}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                <Marker position={positionIP1} icon={customIcon}>
-                    <Popup>
-                        Coordonnées de IP1 : <br /> {positionIP1[ 0 ]}, {positionIP1[ 1 ]}
-                    </Popup>
-                </Marker>
-                <Marker position={positionIP2} icon={customIcon}>
-                    <Popup>
-                        Coordonnées de IP2 : <br /> {positionIP2[ 0 ]}, {positionIP2[ 1 ]}
-                    </Popup>
-                </Marker>
+                {
+                    positionIP1 &&
+                    <Marker position={positionIP1} icon={customIcon}>
+                        <Popup>
+                            Coordonnées de IP1 : <br /> {positionIP1[ 0 ]}, {positionIP1[ 1 ]}
+                        </Popup>
+                    </Marker>
+                }
+                {
+                    positionIP2 &&
+                    <Marker position={positionIP2} icon={customIcon}>
+                        <Popup>
+                            Coordonnées de IP2 : <br /> {positionIP2[ 0 ]}, {positionIP2[ 1 ]}
+                        </Popup>
+                    </Marker>
+                }
             </MapContainer>
         </div>
     );
