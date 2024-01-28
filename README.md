@@ -22,4 +22,4 @@
 ## Pour lancer le deuxième producer, effectuez la commande : 
 `docker-compose -f docker-compose.producer2.yml up`
 
-## Une fois le consumer démarré, accédez à la map à cette adresse : [Map](localhost:3000)
+## Une fois le consumer démarré, accédez à la map à cette adresse : [Map](http://localhost:3000)
