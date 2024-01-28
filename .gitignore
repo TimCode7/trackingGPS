@@ -1,0 +1,16 @@
+# Producer
+/kafka/producer/package-lock.json
+/kafka/producer/node_modules/
+/kafka/producer/.env
+
+# Consumer
+/kafka/consumer/package-lock.json
+/kafka/consumer/node_modules/
+
+# api
+/api/__pycache__/
+
+# frontend
+/frontend/node_modules
+/frontend/package-lock.json
+/.vscode

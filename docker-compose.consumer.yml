@@ -1,0 +1,73 @@
+---
+version: '3'
+services:
+  broker:
+    image: confluentinc/cp-kafka:7.5.2
+    hostname: broker
+    container_name: broker
+    network_mode: "host"
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT'
+      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://$IP:9092"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker:9093'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_JMX_PORT: 9101
+      KAFKA_JMX_HOSTNAME: localhost
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+
+  consumer:
+    build: ./kafka/consumer
+    depends_on:
+      - broker
+    ports:
+      - "3001:3001"
+    environment:
+      KAFKA_HOST: $IP:9092
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=kafka_tracking
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=kafka
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    image: api
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    ports:
+      - "5002:5002"
+    depends_on:
+      - db
+
+  frontend:
+    image: frontend
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

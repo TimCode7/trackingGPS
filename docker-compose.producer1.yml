@@ -1,0 +1,9 @@
+version: '2'
+services:
+  producer1:
+    build:
+      context: ./kafka/producer
+      dockerfile: Dockerfile
+    environment:
+      - PRODUCER_KEY=IP1
+      - KAFKA_HOST=$IP:9092
