@@ -1,5 +1,8 @@
 # Tracking GPS
 
+## Vérifier avant d'exécuter le programme, que postgresql est arrêté sur votre machine :
+`sudo systemctl stop postgresql`
+
 ## Avant d'exécuter le programme, récupérez l'ip de l'hôte
 
 ### Effectuez cette commande sur le terminal de l'hôte : 
