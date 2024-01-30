@@ -5,7 +5,6 @@ services:
     image: confluentinc/cp-kafka:7.5.2
     hostname: broker
     container_name: broker
-    network_mode: "host"
     ports:
       - "9092:9092"
       - "9093:9093"
